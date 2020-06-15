@@ -55,7 +55,7 @@ var jsonArray = [
     }
 ];
 
-function generateCitation(passage) {
+function citationFormatter(passage) {
     var licenseInfo, shortened_new_quote, shortened_original_quote, source_link;
     shortened_new_quote = generateQuoteShorterner(passage["quote"]);
 
@@ -83,7 +83,7 @@ function generateCitation(passage) {
     if ( "original_quote" in passage )
     {
         shortened_original_quote = generateQuoteShorterner(passage["original_quote"]);
-        finalCitation = finalCitation.concat(`Quote modified from original - original quote is ${shortened_original_quote}.`)
+        finalCitation = finalCitation.concat(` Quote modified from original - original quote is ${shortened_original_quote}.`)
     }
 
     return finalCitation;
@@ -116,24 +116,21 @@ function Generator(jsonArray)
 }
 
 //https://www.freecodecamp.org/forum/t/newline-in-react-string-solved/68484/18
-const addLineBreaks = string =>
-  string.split('\n').map((text, index) => (
+const addLineBreaks = content =>
+  content.split('\n').map((text, index) => (
     <React.Fragment key={`${text}-${index}`}>
       {text}
       <br />
     </React.Fragment>
   ));
 
-var ArabicText = (props) => <div>{addLineBreaks(props.duaArray.map( x => arabicParagraphFormatter(x) ).join("\n\n"))}</div>
+var Content = (props) => <div className={props.className}>{addLineBreaks(props.duaArray.map( x => props.mappableFunction(x) ).join("\n\n") )}</div>
 
-var EnglishTranslation = (props) => <div>{addLineBreaks(props.duaArray.map(x => englishParagraphFormatter(x) ).join("\n\n"))}</div>
+var ArabicText = (props) => <Content duaArray={props.duaArray} mappableFunction={arabicParagraphFormatter} className={""} />
 
-function Citations(props)
-{
-  return (
-    <div class="App-citations">{addLineBreaks(props.duaArray.map( x => generateCitation(x) ).join("\n\n"))}</div>
-  );
-}
+var EnglishTranslation = (props) => <Content duaArray={props.duaArray} mappableFunction={englishParagraphFormatter} className={""} />
+
+var Citations = (props) => <Content duaArray={props.duaArray} mappableFunction={citationFormatter} className={"App-citations"} />
 
 class App extends React.Component {
 
