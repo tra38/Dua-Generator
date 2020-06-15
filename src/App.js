@@ -3,9 +3,10 @@ import logo from './logo.svg';
 import './App.css';
 
 //https://stackoverflow.com/a/11935263
-Array.prototype.sample = function(size) {
-  var shuffled = this.slice(0);
-  var i = this.length;
+function getRandomSubarray(array, size)
+{
+  var shuffled = array.slice(0);
+  var i = array.length;
   var min = i - size;
   var temp;
   var index;
@@ -19,7 +20,7 @@ Array.prototype.sample = function(size) {
   }
 
   return shuffled.slice(min);
-};
+}
 
 var jsonArray = [
     {
@@ -111,7 +112,7 @@ function englishParagraphFormatter(json)
 
 function Generator(jsonArray)
 {
-  return jsonArray.sample(3);
+  return getRandomSubarray(jsonArray, 3);
 }
 
 //https://www.freecodecamp.org/forum/t/newline-in-react-string-solved/68484/18
