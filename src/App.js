@@ -55,7 +55,7 @@ var jsonArray = [
 ];
 
 function generateCitation(passage) {
-    var final_response, licenseInfo, shortened_new_quote, shortened_original_quote, source_link, template;
+    var licenseInfo, shortened_new_quote, shortened_original_quote, source_link;
     shortened_new_quote = generateQuoteShorterner(passage["quote"]);
 
     source_link = passage["source"];
@@ -89,10 +89,9 @@ function generateCitation(passage) {
 }
 
 function generateQuoteShorterner(quote) {
-    var final_response, first_phrase, second_phrase, template, text_array;
-    text_array = quote.split(" ");
-    first_phrase = text_array.slice(0, 3).join(" ");
-    second_phrase = text_array.slice((- 3)).join(" ");
+    var text_array = quote.split(" ");
+    var first_phrase = text_array.slice(0, 3).join(" ");
+    var second_phrase = text_array.slice((- 3)).join(" ");
     return `${first_phrase} ... ${second_phrase}`;
 }
 
@@ -113,15 +112,7 @@ function englishParagraphFormatter(json)
 
 function Generator(jsonArray)
 {
-  var generatedText = jsonArray.sample(3);
-
-  var arabicText = generatedText.map( x => arabicParagraphFormatter(x) ).join("\n");
-
-  var englishTranslation = generatedText.map( x => englishParagraphFormatter(x) ).join("\n");
-
-  var citation = generatedText.map( x => generateCitation(x) ).join("\n");
-
-  return `${arabicText}\n\n${englishTranslation}\n\n${citation}`; /* to do, put citation in smaller font or different color */
+  return jsonArray.sample(3);
 }
 
 //https://www.freecodecamp.org/forum/t/newline-in-react-string-solved/68484/18
@@ -133,6 +124,16 @@ const addLineBreaks = string =>
     </React.Fragment>
   ));
 
+var ArabicText = (props) => <div>{addLineBreaks(props.duaArray.map( x => arabicParagraphFormatter(x) ).join("\n\n"))}</div>
+
+var EnglishTranslation = (props) => <div>{addLineBreaks(props.duaArray.map(x => englishParagraphFormatter(x) ).join("\n\n"))}</div>
+
+function Citations(props)
+{
+  return (
+    <div class="App-citations">{addLineBreaks(props.duaArray.map( x => generateCitation(x) ).join("\n\n"))}</div>
+  );
+}
 
 class App extends React.Component {
 
@@ -153,9 +154,12 @@ class App extends React.Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <div>
-            { addLineBreaks( this.state.key ) }
-          </div>
+          <ArabicText duaArray = {this.state.key } />
+          <br />
+          <EnglishTranslation duaArray = {this.state.key} />
+          <br />
+          <Citations duaArray = {this.state.key} />
+          <br />
           <button onClick={() => this.setState({ key: Generator(jsonArray) })}>Reload</button>
         </header>
       </div>
