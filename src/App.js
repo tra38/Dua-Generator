@@ -107,7 +107,6 @@ function arabicParagraphFormatter(json)
 function englishParagraphFormatter(json)
 {
   return json["quote"];
-  //return ```${json["original_arabic"]}\n\n${json["quote"]}```;
 }
 
 function Generator(jsonArray)
