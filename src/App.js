@@ -124,13 +124,50 @@ const addLineBreaks = content =>
     </React.Fragment>
   ));
 
-var Content = (props) => <div className={props.className}>{addLineBreaks(props.duaArray.map( x => props.mappableFunction(x) ).join("\n\n") )}</div>
+var formatContent = (duaArray, mappableFunction) => duaArray.map( x => mappableFunction(x) ).join("\n\n");
+
+function formatContentArray(duaArray, arrayOfMappableFunctions)
+{
+  var finalArray = [];
+  arrayOfMappableFunctions.forEach( mappableFunction =>
+    finalArray.push(formatContent(duaArray, mappableFunction))
+  );
+
+  return finalArray.join("\n\n");
+}
+
+var Content = (props) => <div className={props.className}>{addLineBreaks(formatContent(props.duaArray, props.mappableFunction))}</div>
 
 var ArabicText = (props) => <Content duaArray={props.duaArray} mappableFunction={arabicParagraphFormatter} className={""} />
 
 var EnglishTranslation = (props) => <Content duaArray={props.duaArray} mappableFunction={englishParagraphFormatter} className={""} />
 
 var Citations = (props) => <Content duaArray={props.duaArray} mappableFunction={citationFormatter} className={"App-citations"} />
+
+var sharingText = (duaArray, link) => `${formatContentArray(duaArray, [arabicParagraphFormatter,  englishParagraphFormatter, citationFormatter])}\n\nIf you like this dua, please share it to others! You can also visit ${link} to generate duas of your own!`
+
+//https://css-tricks.com/how-to-use-the-web-share-api/
+class SharingWidget extends React.Component
+{
+  render() {
+    const mystyle = {
+      display: ( navigator.share ? "inline" : "none")
+    }
+    return(
+        <button className="sharing-button"
+                type="button"
+                title={this.props.displayText}
+                style={mystyle}
+                onClick={() =>
+                  navigator.share({
+                    text: sharingText(this.props.duaArray, this.props.link),
+                  })
+                }>
+          <span>{this.props.displayText}</span>
+        </button>
+    )
+  }
+}
 
 class App extends React.Component {
 
@@ -158,6 +195,7 @@ class App extends React.Component {
           <Citations duaArray = {this.state.key} />
           <br />
           <button onClick={() => this.setState({ key: Generator(jsonArray) })}>Reload</button>
+          <SharingWidget link={window.location.href} duaArray={this.state.key}  displayText={"Share This Dua"} />
         </header>
       </div>
     );
