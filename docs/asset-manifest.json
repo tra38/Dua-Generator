@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/Dua-Generator/static/css/main.e6eaf654.chunk.css",
-    "main.js": "/Dua-Generator/static/js/main.6b868a07.chunk.js",
-    "main.js.map": "/Dua-Generator/static/js/main.6b868a07.chunk.js.map",
+    "main.css": "/Dua-Generator/static/css/main.4f02a8e3.chunk.css",
+    "main.js": "/Dua-Generator/static/js/main.196bb705.chunk.js",
+    "main.js.map": "/Dua-Generator/static/js/main.196bb705.chunk.js.map",
     "runtime-main.js": "/Dua-Generator/static/js/runtime-main.ce1c0e01.js",
     "runtime-main.js.map": "/Dua-Generator/static/js/runtime-main.ce1c0e01.js.map",
     "static/js/2.d80d215b.chunk.js": "/Dua-Generator/static/js/2.d80d215b.chunk.js",
     "static/js/2.d80d215b.chunk.js.map": "/Dua-Generator/static/js/2.d80d215b.chunk.js.map",
     "index.html": "/Dua-Generator/index.html",
-    "precache-manifest.dfc8a498629d04643c4db2f214875054.js": "/Dua-Generator/precache-manifest.dfc8a498629d04643c4db2f214875054.js",
+    "precache-manifest.863fd0cf2b93053d64c68b250ba2b023.js": "/Dua-Generator/precache-manifest.863fd0cf2b93053d64c68b250ba2b023.js",
     "service-worker.js": "/Dua-Generator/service-worker.js",
-    "static/css/main.e6eaf654.chunk.css.map": "/Dua-Generator/static/css/main.e6eaf654.chunk.css.map",
+    "static/css/main.4f02a8e3.chunk.css.map": "/Dua-Generator/static/css/main.4f02a8e3.chunk.css.map",
     "static/js/2.d80d215b.chunk.js.LICENSE.txt": "/Dua-Generator/static/js/2.d80d215b.chunk.js.LICENSE.txt",
     "static/media/logo.svg": "/Dua-Generator/static/media/logo.5d5d9eef.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.ce1c0e01.js",
     "static/js/2.d80d215b.chunk.js",
-    "static/css/main.e6eaf654.chunk.css",
-    "static/js/main.6b868a07.chunk.js"
+    "static/css/main.4f02a8e3.chunk.css",
+    "static/js/main.196bb705.chunk.js"
   ]
 }

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Dua-Generator/precache-manifest.dfc8a498629d04643c4db2f214875054.js"
+  "/Dua-Generator/precache-manifest.863fd0cf2b93053d64c68b250ba2b023.js"
 );
 
 self.addEventListener('message', (event) => {
