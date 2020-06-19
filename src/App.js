@@ -27,7 +27,7 @@ function getRandomSubarray(array, size)
 
 function citationFormatter(passage) {
     var licenseInfo, shortened_new_quote, shortened_original_quote, source_link;
-    shortened_new_quote = generateQuoteShorterner(passage["quote"]);
+    shortened_new_quote = generateQuoteShorterner(passage["english_translation"]);
 
     source_link = passage["source"];
 
@@ -77,8 +77,14 @@ function arabicParagraphFormatter(json)
 
 function englishParagraphFormatter(json)
 {
-  return json["quote"];
+  return json["english_translation"];
 }
+
+function urduParagraphFormatter(json)
+{
+  return json["urdu_translation"];
+}
+
 
 function Generator(jsonArray)
 {
@@ -108,11 +114,13 @@ function formatContentArray(duaArray, arrayOfMappableFunctions)
 
 var Content = (props) => <div className={props.className}>{addLineBreaks(formatContent(props.duaArray, props.mappableFunction))}</div>
 
-var ArabicText = (props) => <Content duaArray={props.duaArray} mappableFunction={arabicParagraphFormatter} className={""} />
+var ArabicText = (props) => <Content duaArray={props.duaArray} mappableFunction={arabicParagraphFormatter} className={"App-content"} />
 
-var EnglishTranslation = (props) => <Content duaArray={props.duaArray} mappableFunction={englishParagraphFormatter} className={""} />
+var UrduTranslation = (props) => <Content duaArray={props.duaArray} mappableFunction={urduParagraphFormatter} className={"App-content"} />
 
-var Citations = (props) => <Content duaArray={props.duaArray} mappableFunction={citationFormatter} className={"App-citations"} />
+var EnglishTranslation = (props) => <Content duaArray={props.duaArray} mappableFunction={englishParagraphFormatter} className={"App-content"} />
+
+var Citations = (props) => <Content duaArray={props.duaArray} mappableFunction={citationFormatter} className={"App-citations App-content"} />
 
 var sharingText = (duaArray, link) => `${formatContentArray(duaArray, [arabicParagraphFormatter,  englishParagraphFormatter, citationFormatter])}\n\nIf you like this dua, please share it to others! You can also visit ${link} to generate duas of your own!`
 
@@ -150,12 +158,16 @@ class App extends React.Component {
   }
 
   render() {
+    var myStyle = {
+      "margin-bottom": "3%"
+    };
+
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <ArabicText duaArray = {this.state.key } />
-          <br />
+          <ArabicText duaArray = {this.state.key } style= {myStyle} />
+          <UrduTranslation duaArray={this.state.key} />
           <EnglishTranslation duaArray = {this.state.key} />
           <br />
           <Citations duaArray = {this.state.key} />
